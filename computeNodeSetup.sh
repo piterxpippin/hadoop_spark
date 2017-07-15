@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. /vagrant/externalFunctions.sh
+
+installNecessaryPackages
+addHostnamesAndRemoveMalfunctioningLocalhost
+createHadoopGroupAndAddHduser
+disableIPv6
+configureSshToNotAskTooManyQuestions
+generateSshKeysForHduser
+modifyBashrcForHduser
+extractHadoopToNode
+extractSparkToNode
+fixProblemWithMissingJavaHomeVariable
+copyHadoopConfigurationXmls
+addHadoopSlavesListFile
+setOwnershipToHduserHadoop
+
+echo "Compute node setup completed."
