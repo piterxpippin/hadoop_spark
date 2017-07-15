@@ -23,7 +23,7 @@ function addHostnamesAndRemoveMalfunctioningLocalhost() {
 }
 
 function createHadoopGroupAndAddHduser() {
-    sudo addgroup hadoop
+    sudo groupadd hadoop
     sudo usermod -a -G hadoop hduser
 }
 
