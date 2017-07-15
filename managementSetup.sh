@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /vagrant/externalFunctions.sh
+. ./externalFunctions.sh
 
 installNecessaryPackages
 addHostnamesAndRemoveMalfunctioningLocalhost
