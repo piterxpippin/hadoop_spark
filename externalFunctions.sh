@@ -40,7 +40,7 @@ function configureSshToNotAskTooManyQuestions() {
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
 }
 
-function generateSshKeysForVagrantUser() {
+function generateSshKeysForHduser() {
     runAs hduser 'ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa'
     runAs hduser 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
 }
