@@ -62,7 +62,7 @@ function extractHadoopToNode() {
 
 function modifyBashrcForHduser() {
     cp $REPO_DIR'/addToBashrc.sh /tmp/addToBashrc.sh'
-    chmod 777 $REPO_DIR'/addToBashrc.sh
+    chmod 777 $REPO_DIR'/addToBashrc.sh'
     runAs hduser 'cat tmp/addToBashrc.sh >> ~/.bashrc'
     rm /tmp/addToBashrc.sh
 }
