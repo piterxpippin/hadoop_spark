@@ -21,5 +21,6 @@ fixProblemWithMissingJavaHomeVariable
 copyHadoopConfigurationXmls
 addHadoopMastersAndSlavesList
 setOwnershipToHduserHadoop
+setupHdfsBeforeFirstRun
 
 echo "Management node setup completed."

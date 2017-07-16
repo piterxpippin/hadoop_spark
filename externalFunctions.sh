@@ -124,3 +124,6 @@ function addHadoopMastersAndSlavesList() {
 function setOwnershipToHduserHadoop() {
     chown -R hduser:hadoop /usr/local/hadoop
 }
+function setupHdfsBeforeFirstRun() {
+    runAs hduser 'bin/hadoop namenode -format'
+}
