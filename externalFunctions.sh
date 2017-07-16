@@ -37,7 +37,7 @@ function disableIPv6() {
 }
 
 function configureSshToNotAskTooManyQuestions() {
-    runAs hduser 'echo "Host *"                 >> $HOME/.ssh/config'
+    runAs hduser 'echo "Host *"                 > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
 }
@@ -51,7 +51,7 @@ function extractHadoopToNode() {
     if [ ! -e "/tmp/hadoop-2.7.3.tar.gz" ]; then
         wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz /tmp/hadoop-2.7.3.tar.gz
     fi
-    tar xf $REPO_DIR/packages/hadoop-2.7.3.tar.gz -C /usr/local
+    tar xf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
     mv /usr/local/hadoop-2.7.3 /usr/local/hadoop
 }
 
