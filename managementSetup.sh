@@ -17,7 +17,7 @@ modifyBashrcForHduser
 extractHadoopToNode
 fixProblemWithMissingJavaHomeVariable
 copyHadoopConfigurationXmls
-addHadoopSlavesListFile
+addHadoopMastersAndSlavesList
 setOwnershipToHduserHadoop
 
 echo "Management node setup completed."

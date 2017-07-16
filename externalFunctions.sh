@@ -51,7 +51,10 @@ function disableIPv6() {
 
 function configureSshToNotAskTooManyQuestions() {
     runAs hduser 'mkdir $HOME/.ssh'
+    runAs hduser 'chmod 700 $HOME/.ssh'
+    
     runAs hduser 'touch $HOME/.ssh/config'
+    runAs hduser 'chmod 600 $HOME/.ssh/config'
     runAs hduser 'echo "Host *"                 > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
@@ -60,9 +63,16 @@ function configureSshToNotAskTooManyQuestions() {
 function generateSshKeysForMasterHduser() {
     #runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
     cp -R $REPO_DIR/ssh/ /tmp/
+    
     runAs hduser 'cp /tmp/ssh/id_rsa $HOME/.ssh/id_rsa'
+    runAs hduser 'chmod 600 $HOME/.ssh/id_rsa'
+    
     runAs hduser 'cp /tmp/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
+    runAs hduser 'chmod 644 $HOME/.ssh/id_rsa.pub'
+    
     runAs hduser 'cp /tmp/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+    runAs hduser 'chmod 644 $HOME/.ssh/authorized_keys'
+    
     rm -rf /tmp/ssh
 }
 
@@ -72,8 +82,13 @@ function generateSshKeysForSlaveHduser() {
     #runAs hduser 'cp $REPO_DIR/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
     cp -R $REPO_DIR/ssh/ /tmp/
     runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; fi'
+    runAs hduser 'chmod 600 $HOME/.ssh/id_rsa'
+    runAs hduser 'chmod 644 $HOME/.ssh/id_rsa.pub'
+    
     runAs hduser 'cp /tmp/ssh/authorized_keys $HOME/.ssh/authorized_keys'
     runAs hduser 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
+    runAs hduser 'chmod 644 $HOME/.ssh/authorized_keys'
+    
     rm -rf /tmp/ssh
 }
 
@@ -98,11 +113,12 @@ function fixProblemWithMissingJavaHomeVariable() {
 }
 
 function copyHadoopConfigurationXmls() {
-    cp $REPO_DIR/hadoop_configuration/* /usr/local/hadoop/etc/hadoop
+    cp $REPO_DIR/hadoop_common_configuration/* /usr/local/hadoop/etc/hadoop
 }
 
-function addHadoopSlavesListFile() {
-    cp $REPO_DIR/available_hosts /usr/local/hadoop/etc/hadoop/slaves
+function addHadoopMastersAndSlavesList() {
+    cp $REPO_DIR/hadoop_master_configuration/masters /usr/local/hadoop/etc/hadoop/masters
+    cp $REPO_DIR/hadoop_master_configuration/slaves /usr/local/hadoop/etc/hadoop/slaves
 }
 
 function setOwnershipToHduserHadoop() {
