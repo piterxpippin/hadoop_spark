@@ -5,7 +5,9 @@ if [ $EUID -ne 0 ]; then
     exit 1
 fi
 
-. ./externalFunctions.sh
+REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+. $REPO_DIR/externalFunctions.sh
 
 installNecessaryPackages
 addHostnamesAndRemoveMalfunctioningLocalhost
