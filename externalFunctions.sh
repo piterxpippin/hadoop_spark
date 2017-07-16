@@ -30,15 +30,21 @@ function createHadoopGroupAndHduser() {
 }
 
 function disableIPv6() {
-    if grep -q "net.ipv6.conf.all.disable_ipv6=1" "/etc/sysctl.conf"; then
-        echo "net.ipv6.conf.all.disable_ipv6=1"     >> /etc/sysctl.conf
+    grep -q "net.ipv6.conf.all.disable_ipv6=1" "/etc/sysctl.conf"
+    if [ ! "$?" ]; then
+        sudo echo "net.ipv6.conf.all.disable_ipv6=1"     >> /etc/sysctl.conf
     fi
-    if grep -q "net.ipv6.conf.default.disable_ipv6=1" "/etc/sysctl.conf"; then
+    
+    grep -q "net.ipv6.conf.default.disable_ipv6=1" "/etc/sysctl.conf"
+    if [ ! "$?" ]; then
         echo "net.ipv6.conf.default.disable_ipv6=1"     >> /etc/sysctl.conf
     fi
-    if grep -q "net.ipv6.conf.lo.disable_ipv6=1" "/etc/sysctl.conf"; then
+    
+    grep -q "net.ipv6.conf.lo.disable_ipv6=1" "/etc/sysctl.conf"
+    if [ ! "$?" ]; then
         echo "net.ipv6.conf.lo.disable_ipv6=1"     >> /etc/sysctl.conf
     fi
+    
     sysctl -p
 }
 
