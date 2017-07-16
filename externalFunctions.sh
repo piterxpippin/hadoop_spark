@@ -57,18 +57,22 @@ function configureSshToNotAskTooManyQuestions() {
 
 function generateSshKeysForMasterHduser() {
     #runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
-    runAs hduser 'cp $REPO_DIR/ssh/id_rsa $HOME/.ssh/id_rsa'
-    runAs hduser 'cp $REPO_DIR/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
-    runAs hduser 'cp $REPO_DIR/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+    cp -R $REPO_DIR/ssh/ /tmp/
+    runAs hduser 'cp /tmp/ssh/id_rsa $HOME/.ssh/id_rsa'
+    runAs hduser 'cp /tmp/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
+    runAs hduser 'cp /tmp/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+    rm -rf /tmp/ssh
 }
 
 function generateSshKeysForSlaveHduser() {
     #runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
     #runAs hduser 'cp $REPO_DIR/ssh/id_rsa $HOME/.ssh/id_rsa'
     #runAs hduser 'cp $REPO_DIR/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
+    cp -R $REPO_DIR/ssh/ /tmp/
     runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; fi'
-    runAs hduser 'cp $REPO_DIR/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+    runAs hduser 'cp /tmp/ssh/authorized_keys $HOME/.ssh/authorized_keys'
     runAs hduser 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
+    rm -rf /tmp/ssh
 }
 
 function extractHadoopToNode() {
