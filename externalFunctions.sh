@@ -50,6 +50,8 @@ function disableIPv6() {
 }
 
 function configureSshToNotAskTooManyQuestions() {
+    runAs hduser 'mkdir $HOME/.ssh'
+    runAs hduser 'touch $HOME/.ssh/config'
     runAs hduser 'echo "Host *"                 > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
