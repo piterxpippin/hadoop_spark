@@ -9,7 +9,7 @@ fi
 
 installNecessaryPackages
 addHostnamesAndRemoveMalfunctioningLocalhost
-createHadoopGroupAndAddHduser
+createHadoopGroupAndHduser
 disableIPv6
 configureSshToNotAskTooManyQuestions
 generateSshKeysForHduser

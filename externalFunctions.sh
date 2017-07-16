@@ -11,7 +11,7 @@ function runAs() {
 
 function installNecessaryPackages() {
     local necessaryPackages="expect java java-devel wget"
-    sudo yum -y install $necessaryPackages
+    yum -y install $necessaryPackages
 }
 
 function addHostnamesAndRemoveMalfunctioningLocalhost() {
@@ -22,16 +22,18 @@ function addHostnamesAndRemoveMalfunctioningLocalhost() {
     #tail -n +2 /etc/hosts > /etc/hosts
 }
 
-function createHadoopGroupAndAddHduser() {
-    sudo groupadd hadoop
-    sudo usermod -a -G hadoop hduser
+function createHadoopGroupAndHduser() {
+    useradd hduser
+    echo hduser:hduser | chpasswd
+    groupadd hadoop
+    usermod -a -G hadoop hduser
 }
 
 function disableIPv6() {
     echo "net.ipv6.conf.all.disable_ipv6=1"     >> /etc/sysctl.conf
     echo "net.ipv6.conf.default.disable_ipv6=1" >> /etc/sysctl.conf
     echo "net.ipv6.conf.lo.disable_ipv6=1"      >> /etc/sysctl.conf
-    sudo sysctl -p
+    sysctl -p
 }
 
 function configureSshToNotAskTooManyQuestions() {
@@ -46,7 +48,6 @@ function generateSshKeysForHduser() {
 }
 
 function extractHadoopToNode() {
-    mkdir $REPO_DIR/downloads
     if [ ! -e "/tmp/hadoop-2.7.3.tar.gz" ]; then
         wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz /tmp/hadoop-2.7.3.tar.gz
     fi
