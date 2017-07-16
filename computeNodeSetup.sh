@@ -15,7 +15,6 @@ configureSshToNotAskTooManyQuestions
 generateSshKeysForHduser
 modifyBashrcForHduser
 extractHadoopToNode
-extractSparkToNode
 fixProblemWithMissingJavaHomeVariable
 copyHadoopConfigurationXmls
 addHadoopSlavesListFile

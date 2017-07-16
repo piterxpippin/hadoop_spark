@@ -79,7 +79,7 @@ function fixProblemWithMissingJavaHomeVariable() {
 }
 
 function copyHadoopConfigurationXmls() {
-    cp -R $REPO_DIR/hadoop_configuration /usr/local/hadoop/etc/hadoop
+    cp $REPO_DIR/hadoop_configuration/* /usr/local/hadoop/etc/hadoop
 }
 
 function addHadoopSlavesListFile() {
