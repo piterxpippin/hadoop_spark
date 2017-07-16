@@ -15,7 +15,8 @@ function installNecessaryPackages() {
 }
 
 function addHostnamesAndRemoveMalfunctioningLocalhost() {
-    cat $REPO_DIR/hosts_conf >> /etc/hosts
+    cp /etc/hosts /etc/hosts.backup
+    cp $REPO_DIR/hosts_conf /etc/hosts
     
     # Remove the first line - it contains localhost address with hostname, that broke connectivity between namenode and datanode
     #mv /etc/hosts /etc/hosts.bkp
@@ -54,8 +55,20 @@ function configureSshToNotAskTooManyQuestions() {
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
 }
 
-function generateSshKeysForHduser() {
-    runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
+function generateSshKeysForMasterHduser() {
+    #runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
+    runAs hduser 'cp $REPO_DIR/ssh/id_rsa $HOME/.ssh/id_rsa'
+    runAs hduser 'cp $REPO_DIR/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
+    runAs hduser 'cp $REPO_DIR/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+}
+
+function generateSshKeysForSlaveHduser() {
+    #runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
+    #runAs hduser 'cp $REPO_DIR/ssh/id_rsa $HOME/.ssh/id_rsa'
+    #runAs hduser 'cp $REPO_DIR/ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub'
+    runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; fi'
+    runAs hduser 'cp $REPO_DIR/ssh/authorized_keys $HOME/.ssh/authorized_keys'
+    runAs hduser 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
 }
 
 function extractHadoopToNode() {

@@ -12,7 +12,7 @@ addHostnamesAndRemoveMalfunctioningLocalhost
 createHadoopGroupAndHduser
 disableIPv6
 configureSshToNotAskTooManyQuestions
-generateSshKeysForHduser
+generateSshKeysForSlaveHduser
 modifyBashrcForHduser
 extractHadoopToNode
 fixProblemWithMissingJavaHomeVariable
