@@ -30,9 +30,15 @@ function createHadoopGroupAndHduser() {
 }
 
 function disableIPv6() {
-    echo "net.ipv6.conf.all.disable_ipv6=1"     >> /etc/sysctl.conf
-    echo "net.ipv6.conf.default.disable_ipv6=1" >> /etc/sysctl.conf
-    echo "net.ipv6.conf.lo.disable_ipv6=1"      >> /etc/sysctl.conf
+    if grep -q "net.ipv6.conf.all.disable_ipv6=1" "/etc/sysctl.conf"; then
+        echo "net.ipv6.conf.all.disable_ipv6=1"     >> /etc/sysctl.conf
+    fi
+    if grep -q "net.ipv6.conf.default.disable_ipv6=1" "/etc/sysctl.conf"; then
+        echo "net.ipv6.conf.default.disable_ipv6=1"     >> /etc/sysctl.conf
+    fi
+    if grep -q "net.ipv6.conf.lo.disable_ipv6=1" "/etc/sysctl.conf"; then
+        echo "net.ipv6.conf.lo.disable_ipv6=1"     >> /etc/sysctl.conf
+    fi
     sysctl -p
 }
 
@@ -56,7 +62,10 @@ function extractHadoopToNode() {
 }
 
 function modifyBashrcForHduser() {
-    runAs hduser 'cat '$REPO_DIR'/addToBashrc.sh >> ~/.bashrc'
+    cp $REPO_DIR'/addToBashrc.sh /tmp/addToBashrc.sh
+    chmod 777 $REPO_DIR'/addToBashrc.sh
+    runAs hduser 'cat tmp/addToBashrc.sh >> ~/.bashrc'
+    rm /tmp/addToBashrc.sh
 }
 
 function fixProblemWithMissingJavaHomeVariable() {
