@@ -16,7 +16,7 @@ function installNecessaryPackages() {
 
 function addHostnamesAndRemoveMalfunctioningLocalhost() {
     cp /etc/hosts /etc/hosts.backup
-    cp $REPO_DIR/hosts_conf /etc/hosts
+    cp $REPO_DIR/hosts /etc/hosts
     
     # Remove the first line - it contains localhost address with hostname, that broke connectivity between namenode and datanode
     #mv /etc/hosts /etc/hosts.bkp
