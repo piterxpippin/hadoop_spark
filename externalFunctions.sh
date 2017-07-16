@@ -49,12 +49,11 @@ function configureSshToNotAskTooManyQuestions() {
 }
 
 function generateSshKeysForHduser() {
-    runAs hduser 'ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa'
-    runAs hduser 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
+    runAs hduser 'if [ ! -e $HOME/.ssh/id_rsa ]; then ssh-keygen -t rsa -P "" -f $HOME/.ssh/id_rsa; cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys; fi'
 }
 
 function extractHadoopToNode() {
-    if [ ! -f "/tmp/hadoop-2.7.3.tar.gz" ]; then
+    if [ ! -e /tmp/hadoop-2.7.3.tar.gz ]; then
         wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz /tmp/hadoop-2.7.3.tar.gz
     fi
     tar xf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
