@@ -54,14 +54,14 @@ function generateSshKeysForHduser() {
 
 function extractHadoopToNode() {
     if [ ! -e /tmp/hadoop-2.7.3.tar.gz ]; then
-        wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz /tmp/hadoop-2.7.3.tar.gz
+        wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz -O /tmp/hadoop-2.7.3.tar.gz
     fi
     tar xf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
     mv /usr/local/hadoop-2.7.3 /usr/local/hadoop
 }
 
 function modifyBashrcForHduser() {
-    cp $REPO_DIR'/addToBashrc.sh /tmp/addToBashrc.sh
+    cp $REPO_DIR'/addToBashrc.sh /tmp/addToBashrc.sh'
     chmod 777 $REPO_DIR'/addToBashrc.sh
     runAs hduser 'cat tmp/addToBashrc.sh >> ~/.bashrc'
     rm /tmp/addToBashrc.sh
