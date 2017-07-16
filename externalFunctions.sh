@@ -16,7 +16,8 @@ function installNecessaryPackages() {
 
 function addHostnamesAndRemoveMalfunctioningLocalhost() {
     cp /etc/hosts /etc/hosts.backup
-    cp $REPO_DIR/hosts /etc/hosts
+    echo "127.0.0.1 localhost $(cat /etc/hostname)"
+    cat $REPO_DIR/hosts >> /etc/hosts
     
     # Remove the first line - it contains localhost address with hostname, that broke connectivity between namenode and datanode
     #mv /etc/hosts /etc/hosts.bkp
@@ -55,7 +56,7 @@ function configureSshToNotAskTooManyQuestions() {
     
     runAs hduser 'touch $HOME/.ssh/config'
     runAs hduser 'chmod 600 $HOME/.ssh/config'
-    runAs hduser 'echo "Host *"                 > $HOME/.ssh/config'
+    runAs hduser 'echo "Host 172.31.*"                     > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
     runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
 }
@@ -125,5 +126,5 @@ function setOwnershipToHduserHadoop() {
     chown -R hduser:hadoop /usr/local/hadoop
 }
 function setupHdfsBeforeFirstRun() {
-    runAs hduser 'bin/hadoop namenode -format'
+    runAs hduser 'hdfs namenode -format'
 }
