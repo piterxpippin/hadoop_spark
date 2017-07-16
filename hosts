@@ -1,5 +1,5 @@
-52.43.162.116  hadoop_namenode
-34.211.6.20    hadoop_datanode_1
-34.211.102.147 hadoop_datanode_2
-35.162.174.117 hadoop_datanode_3
-52.26.45.218   hadoop_datanode_4
+52.43.162.116  namenode
+34.211.6.20    datanode1
+34.211.102.147 datanode2
+35.162.174.117 datanode3
+52.26.45.218   datanode4

@@ -1,5 +1,5 @@
-hadoop_namenode
-hadoop_datanode_1
-hadoop_datanode_2
-hadoop_datanode_3
-hadoop_datanode_4
+namenode
+datanode1
+datanode2
+datanode3
+datanode4
