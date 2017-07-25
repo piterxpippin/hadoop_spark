@@ -7,4 +7,4 @@ alias fs="hadoop fs"
 unalias hls &> /dev/null
 alias hls="fs -ls"
 
-export PATH=$PATH:$HADOOP_HOME/bin
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
