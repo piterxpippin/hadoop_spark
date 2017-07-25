@@ -56,9 +56,10 @@ function configureSshToNotAskTooManyQuestions() {
     
     runAs hduser 'touch $HOME/.ssh/config'
     runAs hduser 'chmod 600 $HOME/.ssh/config'
-    runAs hduser 'echo "Host 172.31.*"                     > $HOME/.ssh/config'
+    runAs hduser 'echo "Host namenode"                     > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
-    runAs hduser 'echo "    UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config'
+    runAs hduser 'echo "Host datanode?"                    >> $HOME/.ssh/config'
+    runAs hduser 'echo "    StrictHostKeyChecking no"     >> $HOME/.ssh/config'
 }
 
 function generateSshKeysForMasterHduser() {
