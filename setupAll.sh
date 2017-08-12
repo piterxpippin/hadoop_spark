@@ -12,6 +12,11 @@ while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; d
     sleep 5
 done
 
+aws_control/startAllInstances.sh > run_on_node/hosts
+git add run_on_node/hosts
+git commit -m "Updating hosts file"
+git push
+
 OLD_IFS=$IFS
 IFS=$'\n'
 for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; done); do
