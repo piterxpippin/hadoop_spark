@@ -3,7 +3,7 @@
 if [ -z "$1" ]; then
     echo "You must provide .pem key for logging into machines!"
     exit 1
-done
+fi
 keyPath=$1
 
 . aws_control/startAllInstances.sh
