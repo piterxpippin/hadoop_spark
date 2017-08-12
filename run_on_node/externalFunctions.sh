@@ -31,7 +31,7 @@ function createHadoopGroupAndHduser() {
     useradd hduser
     echo hduser:hduser | chpasswd
     groupadd hadoop
-    usermod -a -g hadoop hduser
+    usermod -g hadoop hduser
 }
 
 function disableIPv6() {
