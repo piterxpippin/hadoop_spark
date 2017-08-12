@@ -12,7 +12,7 @@ while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; d
     sleep 5
 done
 
-aws_control/startAllInstances.sh > run_on_node/hosts
+aws_control/generateHostsFile.sh > run_on_node/hosts
 git add run_on_node/hosts
 git commit -m "Updating hosts file"
 git push
