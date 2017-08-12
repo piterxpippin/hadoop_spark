@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+    echo "You must provide .pem key for logging into machines!"
+    exit 1
+done
+keyPath=$1
+
 . aws_control/startAllInstances.sh
 while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; do
     echo "Waiting 5 seconds for all instances' \"running\" state..."
@@ -14,8 +20,8 @@ for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; do
     instancePublicIp=$(echo $instance | awk '{print $3}')
     
     if [ "$instanceName" == "namenode" ]; then
-        ./configureMasterNode.sh ../First_Key_Pair.pem $instancePublicIp $instanceName
+        ./configureMasterNode.sh $keyPath $instancePublicIp $instanceName
     else
-        ./configureSlaveNode.sh ../First_Key_Pair.pem $instancePublicIp $instanceName
+        ./configureSlaveNode.sh $keyPath $instancePublicIp $instanceName
     fi
 done
