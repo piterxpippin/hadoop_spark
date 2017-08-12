@@ -12,9 +12,8 @@ while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; d
     sleep 5
 done
 
-newHosts=$(aws_control/generateHostsFile.sh)
-if [ "$newHosts" != "$(cat run_on_node/hosts)" ]; then
-    echo $newHosts > run_on_node/hosts
+if [ "$(aws_control/generateHostsFile.sh)" != "$(cat run_on_node/hosts)" ]; then
+    aws_control/generateHostsFile.sh > run_on_node/hosts
     git add run_on_node/hosts
     git commit -m "Updating hosts file"
     git push
@@ -33,3 +32,6 @@ for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; do
         ./configureSlaveNode.sh $keyPath $instancePublicIp $instanceName
     fi
 done
+
+
+if [ "$(aws_control/generateHostsFile.sh)" != "$(cat run_on_node/hosts)" ]; then    echo $(aws_control/generateHostsFile.sh) > run_on_node/hosts; fi

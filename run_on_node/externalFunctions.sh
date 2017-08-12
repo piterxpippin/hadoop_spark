@@ -31,7 +31,7 @@ function createHadoopGroupAndHduser() {
     useradd hduser
     echo hduser:hduser | chpasswd
     groupadd hadoop
-    usermod -a -G hadoop hduser
+    usermod -a -g hadoop hduser
 }
 
 function disableIPv6() {
@@ -62,6 +62,8 @@ function configureSshToNotAskTooManyQuestions() {
     runAs hduser 'echo "Host namenode"                 > $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no" >> $HOME/.ssh/config'
     runAs hduser 'echo "Host datanode?"               >> $HOME/.ssh/config'
+    runAs hduser 'echo "    StrictHostKeyChecking no" >> $HOME/.ssh/config'
+    runAs hduser 'echo "Host 0.0.0.0"                 >> $HOME/.ssh/config'
     runAs hduser 'echo "    StrictHostKeyChecking no" >> $HOME/.ssh/config'
 }
 
