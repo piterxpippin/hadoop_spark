@@ -1,6 +1,7 @@
 #!/bin/bash
 
 REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+hostname=$1
 
 function runAs() {
     local username="$1"
@@ -14,14 +15,16 @@ function installNecessaryPackages() {
     yum -y install $necessaryPackages
 }
 
-function addHostnamesAndRemoveMalfunctioningLocalhost() {
+function setHostname() {
     cp /etc/hosts /etc/hosts.backup
-    echo "127.0.0.1 localhost $(cat /etc/hostname)"
+    sed -i "s/127.0.0.1/127.0.0.1 $hostname # /" /etc/hosts
+    echo $hostname > /etc/hostname
+    hostnamectl set-hostname --static $hostname
+    echo 'preserve_hostname: true' >> /etc/cloud/cloud.cfg
+}
+
+function addExternalHostnames() {
     cat $REPO_DIR/hosts >> /etc/hosts
-    
-    # Remove the first line - it contains localhost address with hostname, that broke connectivity between namenode and datanode
-    #mv /etc/hosts /etc/hosts.bkp
-    #tail -n +2 /etc/hosts > /etc/hosts
 }
 
 function createHadoopGroupAndHduser() {

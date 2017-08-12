@@ -5,12 +5,19 @@ if [ $EUID -ne 0 ]; then
     exit 1
 fi
 
-REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ -z "$1" ]; then
+    echo 'You must provide a hostname!'
+    exit 1
+fi
 
-. $REPO_DIR/externalFunctions.sh
+REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+hostname=$1
+
+. $REPO_DIR/externalFunctions.sh $hostname
 
 installNecessaryPackages
-addHostnamesAndRemoveMalfunctioningLocalhost
+setHostname
+addExternalHostnames
 createHadoopGroupAndHduser
 disableIPv6
 configureSshToNotAskTooManyQuestions
