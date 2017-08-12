@@ -2,6 +2,9 @@
 
 for instance in $(./aws_control/listInstances.sh); do
     instanceName=$(echo $instance | awk '{print $2}')
+    
+    . aws_control/startAllInstances.sh
+    
     instancePublicIp=$(echo $instance | awk '{print $3}')
     
     if [ $instanceName == "namenode" ]; then
