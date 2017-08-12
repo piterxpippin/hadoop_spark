@@ -6,4 +6,5 @@ nodeHostname=$3
 
 ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress 'sudo yum -y install git'
 ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress 'git clone https://github.com/piterxpippin/hadoop_spark.git'
-ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress 'cd ~/hadoop_spark/; sudo ./computeNodeSetup.sh '$nodeHostname
+ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress 'cd ~/hadoop_spark/run_on_node; sudo ./computeNodeSetup.sh '$nodeHostname
+ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress 'sudo reboot'
