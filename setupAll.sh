@@ -12,10 +12,13 @@ while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; d
     sleep 5
 done
 
-aws_control/generateHostsFile.sh > run_on_node/hosts
-git add run_on_node/hosts
-git commit -m "Updating hosts file"
-git push
+newHosts=$(aws_control/generateHostsFile.sh)
+if [ "$newHosts" != "$(cat run_on_node/hosts)" ]; then
+    echo $newHosts > run_on_node/hosts
+    git add run_on_node/hosts
+    git commit -m "Updating hosts file"
+    git push
+fi
 
 OLD_IFS=$IFS
 IFS=$'\n'
