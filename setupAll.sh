@@ -6,7 +6,10 @@ while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; d
     sleep 5
 done
 
-for instance in $(./aws_control/listInstances.sh); do
+OLD_IFS=$IFS
+IFS=$'\n'
+for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; done); do
+    IFS=$OLD_IFS
     instanceName=$(echo $instance | awk '{print $2}')
     instancePublicIp=$(echo $instance | awk '{print $3}')
     
