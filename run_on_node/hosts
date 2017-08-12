@@ -1,5 +1,59 @@
-172.31.7.211 namenode
-172.31.9.201 datanode1
-172.31.10.170 datanode2
-172.31.11.32 datanode3
-172.31.10.109 datanode4
+{
+    "StartingInstances": [
+        {
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceId": "i-0b25026b01289b8bf",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        },
+        {
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceId": "i-07f51eb6166d1c462",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        },
+        {
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceId": "i-058969537c1f58434",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        },
+        {
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceId": "i-0567598f11bed88d5",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        },
+        {
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceId": "i-023328e26cf3b9279",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
