@@ -33,6 +33,7 @@ function createHadoopGroupAndHduser() {
     echo hduser:hduser | chpasswd
     groupadd hadoop
     usermod -g hadoop hduser
+    usermod -a -G ec2-user hduser
 }
 
 function disableIPv6() {
