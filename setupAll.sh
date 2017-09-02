@@ -4,7 +4,7 @@ if [ -z "$1" ]; then
     echo "You must provide .pem key for logging into machines!"
     exit 1
 fi
-keyPath=$1
+keyPair=$1
 
 . aws_control/createM4LargeInstances.sh
 while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) != "5" ]; do
@@ -28,12 +28,12 @@ for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; do
     instancePublicIp=$(echo $instance | awk '{print $3}')
     
     if [ "$instanceName" != "namenode" ]; then
-        ./configureSlaveNode.sh $keyPath $instancePublicIp $instanceName
+        ./configureSlaveNode.sh $keyPair $instancePublicIp $instanceName
     else
         namenodeInstancePublicIp=$instancePublicIp
     fi
 done
 
-./configureMasterNode.sh $keyPath $namenodeInstancePublicIp namenode
+./configureMasterNode.sh $keyPair $namenodeInstancePublicIp namenode
 sleep 30
-. run_on_node/postManagementSetup.sh
+ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$namenodeInstancePublicIp 'cd ~/hadoop_spark/run_on_node; ./postManagementSetup.sh '
