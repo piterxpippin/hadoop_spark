@@ -21,14 +21,19 @@ fi
 
 OLD_IFS=$IFS
 IFS=$'\n'
+namenodeInstancePublicIp=""
 for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; done); do
     IFS=$OLD_IFS
     instanceName=$(echo $instance | awk '{print $2}')
     instancePublicIp=$(echo $instance | awk '{print $3}')
     
-    if [ "$instanceName" == "namenode" ]; then
-        ./configureMasterNode.sh $keyPath $instancePublicIp $instanceName
-    else
+    if [ "$instanceName" != "namenode" ]; then
         ./configureSlaveNode.sh $keyPath $instancePublicIp $instanceName
+    else
+        namenodeInstancePublicIp=$instancePublicIp
     fi
 done
+
+./configureMasterNode.sh $keyPath $namenodeInstancePublicIp namenode
+sleep 30
+. run_on_node/postManagementSetup.sh
