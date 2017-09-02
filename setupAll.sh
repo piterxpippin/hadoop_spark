@@ -22,7 +22,7 @@ fi
 OLD_IFS=$IFS
 IFS=$'\n'
 namenodeInstancePublicIp=""
-for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; done); do
+for instance in $(aws_control/listInstances.sh); do
     IFS=$OLD_IFS
     instanceName=$(echo $instance | awk '{print $2}')
     instancePublicIp=$(echo $instance | awk '{print $3}')
@@ -35,5 +35,3 @@ for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; do
 done
 
 ./configureMasterNode.sh $keyPair $namenodeInstancePublicIp namenode
-sleep 30
-ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$namenodeInstancePublicIp 'cd ~/hadoop_spark/run_on_node; ./postManagementSetup.sh '
