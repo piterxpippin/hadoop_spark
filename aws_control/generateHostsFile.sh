@@ -1,7 +1,8 @@
 #!/bin/bash
 
-aws ec2 describe-instances | python3 -c '
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[PrivateIpAddress,Tags[*].Value]' | python3 -c '
 import sys,json
-for value in json.load(sys.stdin)["Reservations"][0]["Instances"]:
-    print(value.get("PrivateIpAddress"), value["Tags"][0]["Value"], sep=" ", end="\n")
+for jsonArray in json.load(sys.stdin):
+    for value in jsonArray:
+        print(value[0], value[1][0], sep=" ", end="\n")
 '
