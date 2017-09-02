@@ -1,4 +1,5 @@
 export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 
 #Some convenient aliases
