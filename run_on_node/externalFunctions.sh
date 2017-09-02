@@ -17,15 +17,15 @@ function installNecessaryPackages() {
 
 function setHostname() {
     cp /etc/hosts /etc/hosts.backup
-    # localhost set in the file breaks connectivity
-    sed -i "s/127.0.0.1/# 127.0.0.1/" /etc/hosts
+    # localhost set in the file breaks connectivity (it is now removed completely)
+    # sed -i "s/127.0.0.1/# 127.0.0.1/" /etc/hosts
     echo $hostname > /etc/hostname
     hostnamectl set-hostname --static $hostname
     echo 'preserve_hostname: true' >> /etc/cloud/cloud.cfg
 }
 
 function addExternalHostnames() {
-    cat $REPO_DIR/hosts >> /etc/hosts
+    cat $REPO_DIR/hosts > /etc/hosts
 }
 
 function createHadoopGroupAndHduser() {

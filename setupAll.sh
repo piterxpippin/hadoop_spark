@@ -6,8 +6,8 @@ if [ -z "$1" ]; then
 fi
 keyPath=$1
 
-. aws_control/startAllInstances.sh
-while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) == "0" ]; do
+. aws_control/createM4LargeInstances.sh
+while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) != "5" ]; do
     echo "Waiting 5 seconds for all instances' \"running\" state..."
     sleep 5
 done
@@ -32,6 +32,3 @@ for instance in $(aws_control/listInstances.sh | while read -r a; do echo $a; do
         ./configureSlaveNode.sh $keyPath $instancePublicIp $instanceName
     fi
 done
-
-
-if [ "$(aws_control/generateHostsFile.sh)" != "$(cat run_on_node/hosts)" ]; then    echo $(aws_control/generateHostsFile.sh) > run_on_node/hosts; fi
