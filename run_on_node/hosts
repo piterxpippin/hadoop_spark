@@ -1,11 +1,5 @@
-None datanode1
-172.31.9.53 datanode4
-172.31.5.54 datanode2
-172.31.7.130 namenode
-172.31.11.146 datanode3
-172.31.5.130 datanode1
-None blabla
-None namenode
-None datanode4
-None datanode2
-None datanode3
+172.31.0.242 datanode3
+172.31.14.29 datanode1
+172.31.0.101 datanode2
+172.31.12.44 datanode4
+172.31.10.193 namenode
