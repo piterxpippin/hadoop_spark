@@ -1,6 +1,6 @@
 #!/bin/bash
 
-aws ec2 describe-instances --query 'Reservations[*].Instances[*].[PrivateIpAddress,Tags[*].Value]' | python3 -c '
+aws ec2 describe-instances --filters 'Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped' --query 'Reservations[*].Instances[*].[PrivateIpAddress,Tags[*].Value]' | python3 -c '
 import sys,json
 for jsonArray in json.load(sys.stdin):
     for value in jsonArray:
