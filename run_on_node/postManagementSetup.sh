@@ -7,4 +7,5 @@ REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 runAs hduser 'start-dfs.sh'
 runAs hduser 'hdfs dfs -mkdir -p /user/hduser/input'
 runAs hduser 'hdfs dfs -put /home/ec2-user/database/* /user/hduser/input/'
+rm -rf /home/ec2-user/database
 runAs hduser 'stop-dfs.sh'
