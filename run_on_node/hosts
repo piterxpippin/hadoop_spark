@@ -1,6 +1,5 @@
-172.31.45.139 tester
-172.31.2.166 datanode3
-172.31.0.202 namenode
-172.31.12.129 datanode4
-172.31.14.41 datanode2
-172.31.13.190 datanode1
+172.31.14.124 datanode2
+172.31.7.125 datanode4
+172.31.7.100 namenode
+172.31.4.54 datanode3
+172.31.13.127 datanode1
