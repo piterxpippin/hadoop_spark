@@ -8,7 +8,7 @@ function runCommand() {
     ssh -o StrictHostKeyChecking=no -i $keyPair ec2-user@$nodeAddress $1
 }
 
-runCommand 'sudo yum -y install git wget'
+runCommand 'sudo yum -y install git wget screen'
 runCommand 'chmod -R 750 $HOME'
 runCommand 'if [ -d "$HOME/hadoop_spark" ]; then cd ~/hadoop_spark; git pull -r; else git clone https://github.com/piterxpippin/hadoop_spark.git; fi'
 runCommand 'mkdir database'
