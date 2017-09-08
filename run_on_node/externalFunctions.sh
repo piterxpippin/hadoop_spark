@@ -133,6 +133,25 @@ function addHadoopMastersAndSlavesList() {
 function setOwnershipToHduserHadoop() {
     chown -R hduser:hadoop /usr/local/hadoop
 }
+
 function setupHdfsBeforeFirstRun() {
     runAs hduser 'hdfs namenode -format'
+}
+
+function downloadAndInstallKafka() {
+    if [ ! -e /tmp/kafka_2.11-0.11.0.0.tgz ]; then
+        wget http://ftp.ps.pl/pub/apache/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz -O /tmp/kafka_2.11-0.11.0.0.tgz
+    fi
+    tar xf /tmp/kafka_2.11-0.11.0.0.tgz -C /usr/local
+    mv /usr/local/kafka_2.11-0.11.0.0 /usr/local/kafka
+    chown -R hduser:hadoop /usr/local/kafka
+}
+
+function downloadAndInstallHive() {
+    if [ ! -e /tmp/apache-hive-2.3.0-bin.tar.gz ]; then
+        wget http://ftp.ps.pl/pub/apache/hive/hive-2.3.0/apache-hive-2.3.0-bin.tar.gz -O /tmp/apache-hive-2.3.0-bin.tar.gz
+    fi
+    tar xf /tmp/apache-hive-2.3.0-bin.tar.gz -C /usr/local
+    mv /usr/local/apache-hive-2.3.0-bin /usr/local/apache-hive
+    chown -R hduser:hadoop /usr/local/apache-hive
 }
