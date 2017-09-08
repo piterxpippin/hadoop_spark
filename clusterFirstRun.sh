@@ -8,3 +8,18 @@ keyPath=$1
 
 namenodeAddress=$(aws_control/listInstances.sh | grep namenode | awk '{print $3}')
 ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "start-dfs.sh; start-yarn.sh"'
+
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hdfs dfs -mkdir /tmp"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hdfs dfs -mkdir /user/hive/warehouse"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hdfs dfs -chmod g+w /tmp"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hdfs dfs -chmod g+w /user/hive/warehouse"'
+
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "schematool -dbType derby -initSchema"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hiveserver2 &"'
+wait 10
+
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &"'
+wait 10
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &"'
+wait 10
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic"'
