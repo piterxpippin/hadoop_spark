@@ -102,11 +102,11 @@ function generateSshKeysForSlaveHduser() {
 }
 
 function extractHadoopToNode() {
-    if [ ! -e /tmp/hadoop-2.7.3.tar.gz ]; then
-        wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz -O /tmp/hadoop-2.7.3.tar.gz
+    if [ ! -e /tmp/hadoop-2.7.4.tar.gz ]; then
+        wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz -O /tmp/hadoop-2.7.4.tar.gz
     fi
-    tar xf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
-    mv /usr/local/hadoop-2.7.3 /usr/local/hadoop
+    tar xf /tmp/hadoop-2.7.4.tar.gz -C /usr/local
+    mv /usr/local/hadoop-2.7.4 /usr/local/hadoop
 }
 
 function modifyBashrcForHduser() {
