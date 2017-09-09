@@ -16,11 +16,11 @@ ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -
 ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "hdfs dfs -chmod g+w /user/hive/warehouse"'
 
 ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "schematool -dbType derby -initSchema"'
-ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'screen -S hiveServerRun -d -m sudo -S -u hduser -i /bin/bash -l -c "hiveserver2"'
+#ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'screen -S hiveServerRun -d -m sudo -S -u hduser -i /bin/bash -l -c "hiveserver2"'
 sleep 10
 
-ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'screen -S zookeeperRun  -d -m sudo -S -u hduser -i /bin/bash -l -c "zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "zookeeper-server-start.sh -daemon $KAFKA_HOME/config/zookeeper.properties"'
 sleep 10
-ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'screen -S kafkaRun      -d -m sudo -S -u hduser -i /bin/bash -l -c "kafka-server-start.sh $KAFKA_HOME/config/server.properties"'
+ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "kafka-server-start.sh -daemon $KAFKA_HOME/config/server.properties"'
 sleep 10
 ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress 'sudo -S -u hduser -i /bin/bash -l -c "kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic"'
