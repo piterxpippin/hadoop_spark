@@ -11,5 +11,5 @@ fi
 keyPath=$1
 command=$2
 
-namenodeAddress=$(aws_control/listInstances.sh | grep namenode | awk '{print $3}')
+namenodeAddress=$(aws-control/listInstances.sh | grep namenode | awk '{print $3}')
 ssh -o StrictHostKeyChecking=no -i $keyPath ec2-user@$namenodeAddress "sudo -S -u hduser -i /bin/bash -l -c \"eval '$command'\""
