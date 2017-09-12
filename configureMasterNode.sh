@@ -19,4 +19,4 @@ runCommand 'cd ~/hadoop_spark/run_on_node; sudo ./managementSetup.sh '$nodeHostn
 runCommand 'sudo reboot'
 sleep 30
 runCommand 'cd ~/hadoop_spark/run_on_node; ./postManagementSetup.sh'
-runCommand 'cd ~/hadoop_spark/run_on_node; sudo ./kafkaHiveSetup.sh'
+runCommand 'cd ~/hadoop_spark/run_on_node; sudo ./kafkaSparkHiveSetup.sh'

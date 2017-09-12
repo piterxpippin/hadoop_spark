@@ -28,7 +28,7 @@ for instance in $(aws-control/listInstances.sh); do
     instancePublicIp=$(echo $instance | awk '{print $3}')
 
     if [ "$instanceName" != "namenode" ]; then
-        ./configureSlaveNode.sh $keyPair $instancePublicIp $instanceName
+        ./configureSlaveNode.sh $keyPair $instancePublicIp $instanceName &
     else
         namenodeInstancePublicIp=$instancePublicIp
     fi
