@@ -1,5 +1,5 @@
-172.31.5.25 datanode2
-172.31.1.226 datanode3
-172.31.10.144 datanode4
-172.31.8.53 namenode
-172.31.14.202 datanode1
+172.31.10.160 namenode
+172.31.13.206 datanode4
+172.31.3.68 datanode1
+172.31.7.229 datanode3
+172.31.7.207 datanode2
