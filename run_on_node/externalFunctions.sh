@@ -159,9 +159,9 @@ function downloadAndInstallHive() {
 
 function downloadAndInstallKafka() {
     if [ ! -e /tmp/spark-2.2.0-bin-hadoop2.7.tgz ]; then
-        curl https://www.apache.org/dyn/closer.lua/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz > /tmp/spark-2.2.0-bin-hadoop2.7.tgz
+        curl https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz > /tmp/spark-2.2.0-bin-hadoop2.7.tgz
     fi
-    tar xf /tmp/spark-2.2.0-bin-hadoop2.7 -C /usr/local
+    tar xf /tmp/spark-2.2.0-bin-hadoop2.7.tgz -C /usr/local
     mv /usr/local/spark-2.2.0-bin-hadoop2.7 /usr/local/spark
     cp $REPO_DIR/hive_configuration/hive-site.xml /usr/local/spark/conf/hive-site.xml
     chown -R hduser:hadoop /usr/local/spark

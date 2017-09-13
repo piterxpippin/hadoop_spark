@@ -26,6 +26,10 @@
         <value>12288</value>
     </property>
     <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>12288</value>
+    </property>
+    <property>
         <name>yarn.admin.acl</name>
         <value>*</value>
     </property>
