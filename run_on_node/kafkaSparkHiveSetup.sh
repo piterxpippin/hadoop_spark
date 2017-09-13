@@ -6,4 +6,4 @@ REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 downloadAndInstallKafka
 downloadAndInstallHive
-downloadAndInstallKafka
+downloadAndInstallSpark

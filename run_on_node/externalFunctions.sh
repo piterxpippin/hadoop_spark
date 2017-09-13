@@ -157,7 +157,7 @@ function downloadAndInstallHive() {
     chown -R hduser:hadoop /usr/local/apache-hive
 }
 
-function downloadAndInstallKafka() {
+function downloadAndInstallSpark() {
     if [ ! -e /tmp/spark-2.2.0-bin-hadoop2.7.tgz ]; then
         curl https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz > /tmp/spark-2.2.0-bin-hadoop2.7.tgz
     fi
