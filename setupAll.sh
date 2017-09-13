@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 fi
 keyPair=$1
 
-. aws-control/createM4xLargeInstances.sh
+. aws-control/createM4LargeInstances.sh
 while [ $(aws ec2 describe-instance-status | grep "running" | wc -l) != "5" ]; do
     echo "Waiting 5 seconds for all instances' \"running\" state..."
     sleep 5
